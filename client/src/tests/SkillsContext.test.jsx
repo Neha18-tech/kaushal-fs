@@ -37,7 +37,7 @@ describe('SkillsContext real-time socket events', () => {
       }),
     };
 
-    global.fetch = vi.fn().mockResolvedValue({
+    globalThis.fetch = vi.fn().mockResolvedValue({
       ok: true,
       json: async () => ({
         success: true,

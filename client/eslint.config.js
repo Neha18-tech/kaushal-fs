@@ -54,6 +54,8 @@ export default [
         vi: 'readonly',
         beforeEach: 'readonly',
         afterEach: 'readonly',
+        global: 'readonly',
+        globalThis: 'readonly',
       },
     },
     rules: {

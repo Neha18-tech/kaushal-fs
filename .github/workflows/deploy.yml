@@ -3,6 +3,7 @@ name: Deploy
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 # Only run deploy AFTER CI passes on the same commit
 # (GitHub automatically gates this when ci.yml is a required status check)
@@ -12,6 +13,7 @@ jobs:
   deploy-client:
     name: Deploy client to Vercel
     runs-on: ubuntu-latest
+    if: ${{ secrets.VERCEL_TOKEN != '' && secrets.VERCEL_ORG_ID != '' && secrets.VERCEL_PROJECT_ID != '' }}
     needs: []  # runs concurrently; gate via branch protection requiring ci.yml to pass
 
     steps:
@@ -31,6 +33,7 @@ jobs:
   deploy-server:
     name: Deploy server to Render
     runs-on: ubuntu-latest
+    if: ${{ secrets.RENDER_DEPLOY_HOOK != '' }}
 
     steps:
       - name: Trigger Render deploy hook

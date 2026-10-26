@@ -12,7 +12,7 @@ const jwt = require('jsonwebtoken');
 dotenv.config();
 
 // ─── Env-boot guard ───────────────────────────────────────────────────────────
-if (process.env.NODE_ENV !== 'test') {
+if (require.main === module && process.env.NODE_ENV !== 'test') {
   const REQUIRED_ENV = ['JWT_SECRET', 'MONGODB_URI'];
   const missing = REQUIRED_ENV.filter((key) => !process.env[key]);
   if (missing.length > 0) {
@@ -130,7 +130,7 @@ io.on('connection', (socket) => {
 
 // ─── Start server ─────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 5001;
-if (process.env.NODE_ENV !== 'test') {
+if (require.main === module) {
   connectDB().then(() => {
     server.listen(PORT, () => {
       console.log(`\n🚀  SwapSkill API running on port ${PORT} (${process.env.NODE_ENV || 'development'})`);
